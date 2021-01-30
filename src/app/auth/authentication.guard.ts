@@ -13,7 +13,7 @@ export class AuthenticationGuard implements CanActivate {
   constructor(private router: Router, private credentialsService: CredentialsService) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (this.credentialsService.isAuthenticated()) {
+    if (this.credentialsService.isAuthenticated() || state.url == '/user-registration') {
       return true;
     }
 

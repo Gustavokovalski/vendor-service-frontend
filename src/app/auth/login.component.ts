@@ -1,13 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
+import { ErrorStateMatcher } from '@angular/material/core';
 
 import { environment } from '@env/environment';
 import { Logger, UntilDestroy, untilDestroyed } from '@core';
 import { AuthenticationService } from './authentication.service';
 
 const log = new Logger('Login');
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @UntilDestroy()
 @Component({
@@ -20,6 +28,7 @@ export class LoginComponent implements OnInit {
   error: string | undefined;
   loginForm!: FormGroup;
   isLoading = false;
+  hidePassword = true;
 
   constructor(
     private router: Router,
@@ -55,6 +64,10 @@ export class LoginComponent implements OnInit {
       );
   }
 
+  createUser() {
+    this.router.navigate([`/user-registration`]);
+  }
+
   private createForm() {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
@@ -62,4 +75,10 @@ export class LoginComponent implements OnInit {
       remember: true,
     });
   }
+
+  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+
+  passwordFormControl = new FormControl('', [Validators.required]);
+
+  matcher = new MyErrorStateMatcher();
 }

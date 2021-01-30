@@ -1,42 +1,57 @@
-<header>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="https://github.com/ngx-rocket" translate>APP_NAME</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      aria-controls="navbar-menu"
-      aria-label="Toggle navigation"
-      (click)="toggleMenu()"
-      [attr.aria-expanded]="!menuHidden"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div id="navbar-menu" class="collapse navbar-collapse float-xs-none" [ngbCollapse]="menuHidden">
-      <div class="navbar-nav">
-        <a class="nav-item nav-link text-uppercase" routerLink="/home" routerLinkActive="active">
-          <i class="fas fa-home"></i>
-          <span translate>Home</span>
+<header class="example-container">
+  <mat-toolbar color="primary" class="example-toolbar">
+    <a class="nav-item nav-link text-uppercase" type="button" (click)="drawer.toggle()" routerLinkActive="active">
+      <span class="material-icons">menu</span>
+    </a>
+    <h1 translate>APP_NAME</h1>
+
+    <div class="navbar-nav ml-auto">
+      <div class="nav-item" ngbDropdown>
+        <a id="user-dropdown" class="nav-link" ngbDropdownToggle>
+          <i class="fas fa-user-circle"></i>
         </a>
-        <a class="nav-item nav-link text-uppercase" routerLink="/about" routerLinkActive="active">
-          <i class="fas fa-question-circle"></i>
-          <span translate>About</span>
-        </a>
-      </div>
-      <div class="navbar-nav ml-auto">
-        <app-language-selector inNavbar="true" menuClass="dropdown-menu dropdown-menu-right"></app-language-selector>
-        <div class="nav-item" ngbDropdown>
-          <a id="user-dropdown" class="nav-link" ngbDropdownToggle>
-            <i class="fas fa-user-circle"></i>
-          </a>
-          <div ngbDropdownMenu aria-labelledby="user-dropdown" class="dropdown-menu dropdown-menu-right">
-            <h6 class="dropdown-header">
-              <span translate>Logged in as</span> <b>{{ username }}</b>
-            </h6>
-            <div class="dropdown-divider"></div>
-            <button class="dropdown-item" (click)="logout()" translate>Logout</button>
+        <div ngbDropdownMenu aria-labelledby="user-dropdown" class="dropdown-menu dropdown-menu-right">
+          <div class="dropdown-header">
+            <span translate>Usuário: </span> <b>{{ username }}</b>
           </div>
+          <div class="dropdown-divider"></div>
+          <button class="dropdown-item" (click)="logout()" translate>Sair</button>
         </div>
       </div>
     </div>
-  </nav>
+  </mat-toolbar>
+
+  <mat-drawer-container class="sidenav-container" autosize>
+    <mat-drawer #drawer class="sidenav-drawer" mode="over">
+      <mat-expansion-panel class="menu-flex">
+        <mat-expansion-panel-header>
+          <a class="nav-item nav-link text-uppercase" type="button"> Contas </a>
+        </mat-expansion-panel-header>
+
+        <a class="nav-item nav-link text-uppercase" type="button"> Visualizar </a>
+
+        <a class="nav-item nav-link text-uppercase" type="button"> Criar </a>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="menu-flex">
+        <mat-expansion-panel-header>
+          <a class="nav-item nav-link text-uppercase" type="button"> Pedidos </a>
+        </mat-expansion-panel-header>
+
+        <a class="nav-item nav-link text-uppercase" type="button" [routerLink]="['/order-list']"> Visualizar </a>
+
+        <a class="nav-item nav-link text-uppercase" type="button"> Criar </a>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="menu-flex">
+        <mat-expansion-panel-header>
+          <a class="nav-item nav-link text-uppercase" type="button"> Produtos </a>
+        </mat-expansion-panel-header>
+
+        <a class="nav-item nav-link text-uppercase" type="button" [routerLink]="['/product-list']"> Visualizar </a>
+
+        <a class="nav-item nav-link text-uppercase" type="button" [routerLink]="['/product-form']"> Criar </a>
+      </mat-expansion-panel>
+    </mat-drawer>
+  </mat-drawer-container>
 </header>
