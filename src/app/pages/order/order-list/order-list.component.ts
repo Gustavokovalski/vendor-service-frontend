@@ -2,52 +2,10 @@ import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-
-export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  color: string;
-}
-
-const COLORS: string[] = [
-  'maroon',
-  'red',
-  'orange',
-  'yellow',
-  'olive',
-  'green',
-  'purple',
-  'fuchsia',
-  'lime',
-  'teal',
-  'aqua',
-  'blue',
-  'navy',
-  'black',
-  'gray',
-];
-const NAMES: string[] = [
-  'Maia',
-  'Asher',
-  'Olivia',
-  'Atticus',
-  'Amelia',
-  'Jack',
-  'Charlotte',
-  'Theodore',
-  'Isla',
-  'Oliver',
-  'Isabella',
-  'Jasper',
-  'Cora',
-  'Levi',
-  'Violet',
-  'Arthur',
-  'Mia',
-  'Thomas',
-  'Elizabeth',
-];
+import { Router } from '@angular/router';
+import { IOrderModel } from '@app/models/order.model';
+import { SnackBarService } from 'src/services/snackbar.service';
+import { IOrderService } from '../order.service';
 
 @Component({
   selector: 'app-order-list',
@@ -55,25 +13,20 @@ const NAMES: string[] = [
   styleUrls: ['./order-list.component.scss'],
 })
 export class OrderListComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['id', 'name', 'progress', 'color', 'actions'];
-  dataSource: MatTableDataSource<UserData>;
+  private pageSize = 5;
+  displayedColumns: string[] = ['id', 'customerEmail', 'orderTotalPrice', 'purchaseDate', 'actions'];
+  dataSource: MatTableDataSource<IOrderModel>;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor() {
-    const users = Array.from({ length: 100 }, (_, k) => createNewUser(k + 1));
+  constructor(private service: IOrderService, private snackBarService: SnackBarService, private router: Router) {}
 
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
+  ngOnInit(): void {
+    this.getOrders();
   }
 
-  ngOnInit(): void {}
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
+  ngAfterViewInit() {}
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -83,19 +36,40 @@ export class OrderListComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
-}
 
-function createNewUser(id: number): UserData {
-  const name =
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
-    ' ' +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
-    '.';
+  public getOrders() {
+    this.service
+      .list()
+      .then((res) => {
+        this.dataSource = new MatTableDataSource<IOrderModel>(res.result);
+        this.paginator.pageSize = this.pageSize;
+        this.dataSource.paginator = this.paginator;
+      })
+      .catch((err) => {
+        this.snackBarService.openSnackBar(err.toString(), 'error');
+      });
+  }
 
-  return {
-    id: id.toString(),
-    name: name,
-    progress: Math.round(Math.random() * 100).toString(),
-    color: COLORS[Math.round(Math.random() * (COLORS.length - 1))],
-  };
+  public edit(id: any) {
+    this.router.navigate([`/order-form/${id}`]);
+  }
+
+  public delete(id: any) {
+    debugger;
+    this.service
+      .delete(id)
+      .then((res) => {
+        if (res.success) {
+          this.snackBarService.openSnackBar(res.message[0].description, 'success');
+        } else {
+          this.snackBarService.openSnackBar(res.message[0].description, 'error');
+        }
+      })
+      .catch((err) => {
+        this.snackBarService.openSnackBar(err.toString(), 'error');
+      })
+      .finally(() => {
+        this.getOrders();
+      });
+  }
 }

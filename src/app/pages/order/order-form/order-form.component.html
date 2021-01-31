@@ -1,28 +1,28 @@
 <div class="product-container bg-light">
   <div class="product-box">
     <div class="row">
-      <h1 translate>Cadastro de Pedido</h1>
+      <h1 translate>{{ title }}</h1>
     </div>
     <div class="container">
       <mat-card class="card-order">
         <mat-card-content class="card-content">
-          <form class="example-form" [formGroup]="orderForm" novalidate>
+          <form class="example-form" [formGroup]="orderForm" (ngSubmit)="onSubmit()" novalidate>
             <mat-form-field class="example-full-width">
               <mat-label>Email do Comprador</mat-label>
               <input
                 translate
                 type="email"
                 matInput
-                formControlName="emailFormControl"
+                formControlName="customerEmail"
                 [errorStateMatcher]="matcher"
                 placeholder="Ex. exemplo@email.com"
               />
               <mat-hint>Digite o e-mail do comprador</mat-hint>
 
-              <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+              <mat-error *ngIf="customerEmail.hasError('customerEmail') && !customerEmail.hasError('required')">
                 Insira um e-mail válido
               </mat-error>
-              <mat-error *ngIf="emailFormControl.hasError('required')">
+              <mat-error *ngIf="customerEmail.hasError('required')">
                 O e-mail do comprador é <strong>obrigatório</strong>
               </mat-error>
             </mat-form-field>
@@ -32,55 +32,55 @@
                 <mat-form-field class="select-product">
                   <mat-label>Selecione um produto</mat-label>
                   <mat-select [(value)]="selected">
-                    <mat-option value="option1">Option 1</mat-option>
-                    <mat-option value="option2">Option 2</mat-option>
-                    <mat-option value="option3">Exemplo</mat-option>
+                    <mat-option *ngFor="let product of productList" [value]="product"
+                      >{{ product.name }} - R$ {{ product.price | currency }}</mat-option
+                    >
                   </mat-select>
                 </mat-form-field>
               </div>
               <div class="col-4">
                 <mat-form-field>
                   <mat-label>Quantidade</mat-label>
-                  <input matInput type="number" formControlName="quantityFormControl" min="0" />
+                  <input matInput type="number" formControlName="productQuantity" min="0" />
                 </mat-form-field>
               </div>
               <div class="col-2" class="btn-add">
-                <button mat-button type="button" color="primary">
+                <button mat-button type="button" (click)="addProduct()" color="primary">
                   <span translate>Adicionar</span>
                 </button>
               </div>
             </div>
 
             <div class="tbl-container">
-              <table mat-table [dataSource]="transactions">
+              <table mat-table [dataSource]="dataSource">
                 <ng-container matColumnDef="product">
                   <th mat-header-cell *matHeaderCellDef>Produto</th>
-                  <td mat-cell *matCellDef="let transaction">{{ transaction.product }}</td>
+                  <td mat-cell *matCellDef="let productAdded">{{ productAdded.productName }}</td>
                   <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
 
                 <ng-container matColumnDef="quantity">
                   <th mat-header-cell *matHeaderCellDef>Quantidade</th>
-                  <td mat-cell *matCellDef="let transaction">{{ transaction.quantity }}</td>
+                  <td mat-cell *matCellDef="let productAdded">{{ productAdded.quantity }}</td>
                   <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
 
-                <ng-container matColumnDef="unitPrice">
+                <ng-container matColumnDef="productPrice">
                   <th mat-header-cell *matHeaderCellDef>Preço Unitário</th>
-                  <td mat-cell *matCellDef="let transaction">{{ transaction.unitPrice | currency }}</td>
+                  <td mat-cell *matCellDef="let productAdded">{{ productAdded.productPrice | currency }}</td>
                   <td mat-footer-cell *matFooterCellDef>Total Pedido</td>
                 </ng-container>
 
                 <ng-container matColumnDef="totalPrice">
                   <th mat-header-cell *matHeaderCellDef>Preço Total</th>
-                  <td mat-cell *matCellDef="let transaction">{{ transaction.totalPrice | currency }}</td>
+                  <td mat-cell *matCellDef="let productAdded">{{ productAdded.totalPrice | currency }}</td>
                   <td mat-footer-cell *matFooterCellDef>{{ getTotalCost() | currency }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="actions">
                   <th mat-header-cell *matHeaderCellDef></th>
-                  <td mat-cell *matCellDef="let transaction" class="btn-actions">
-                    <button mat-icon-button type="button">
+                  <td mat-cell *matCellDef="let productAdded" class="btn-actions">
+                    <button mat-icon-button type="button" (click)="removeProduct(productAdded)">
                       <mat-icon class="icon-btn-actions">clear</mat-icon>
                     </button>
                   </td>
@@ -93,7 +93,7 @@
               </table>
             </div>
 
-            <button mat-button type="submit" color="primary">Criar</button>
+            <button mat-button type="submit" color="primary">Salvar</button>
             <button mat-button type="button" (click)="cancel()">Cancelar</button>
           </form>
         </mat-card-content>

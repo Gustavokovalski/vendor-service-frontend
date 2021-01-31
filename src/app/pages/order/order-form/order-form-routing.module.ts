@@ -11,6 +11,11 @@ const routes: Routes = [
       component: OrderFormComponent,
       data: { title: marker('Pedidos'), profile: ['Admin', 'Employee'] },
     },
+    {
+      path: 'order-form/:id',
+      component: OrderFormComponent,
+      data: { title: marker('Pedidos'), profile: ['Admin', 'Employee'] },
+    },
   ]),
 ];
 

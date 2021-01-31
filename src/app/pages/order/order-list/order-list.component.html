@@ -13,19 +13,21 @@
             <td mat-cell *matCellDef="let row">{{ row.id }}</td>
           </ng-container>
 
-          <ng-container matColumnDef="progress">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Progress</th>
-            <td mat-cell *matCellDef="let row">{{ row.progress }}%</td>
+          <ng-container matColumnDef="customerEmail">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>E-mail</th>
+            <td mat-cell *matCellDef="let row">{{ row.customerEmail }}</td>
           </ng-container>
 
-          <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-            <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+          <ng-container matColumnDef="purchaseDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Data do Pedido</th>
+            <td mat-cell *matCellDef="let row">{{ row.purchaseDate }}</td>
           </ng-container>
 
-          <ng-container matColumnDef="color">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Color</th>
-            <td mat-cell *matCellDef="let row" [style.color]="row.color">{{ row.color }}</td>
+          <ng-container matColumnDef="orderTotalPrice">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Preço Total</th>
+            <td mat-cell *matCellDef="let row" [style.color]="row.orderTotalPrice">
+              {{ row.orderTotalPrice | currency }}
+            </td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -39,8 +41,8 @@
                 <mat-icon>more_vert</mat-icon>
               </button>
               <mat-menu #menu="matMenu">
-                <button mat-menu-item>Editar</button>
-                <button mat-menu-item>Excluir</button>
+                <button mat-menu-item (click)="edit(row.id)">Editar</button>
+                <button mat-menu-item (click)="delete(row.id)">Excluir</button>
               </mat-menu>
             </td>
           </ng-container>
@@ -50,7 +52,7 @@
           </tr>
         </table>
 
-        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
       </div>
     </div>
   </div>

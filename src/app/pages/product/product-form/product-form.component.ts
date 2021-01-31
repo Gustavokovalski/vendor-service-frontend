@@ -53,7 +53,6 @@ export class ProductFormComponent implements OnInit {
 
   public async getProduct() {
     try {
-      debugger;
       if (!this.newProduct) {
         const res = await this.service.getById(this.id);
         if (res.success) {
@@ -78,9 +77,6 @@ export class ProductFormComponent implements OnInit {
     }
 
     Object.assign(this.model, this.productForm.value);
-    // this.model.id = this.id;
-    // this.model.name = this.productForm.controls.name.value;
-    // this.model.price = this.productForm.controls.price.value;
     this.model.active = true;
     try {
       let res: IBaseModel<IProductModel> = null;
