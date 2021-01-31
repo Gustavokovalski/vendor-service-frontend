@@ -26,18 +26,18 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class LoginComponent implements OnInit {
   version: string | null = environment.version;
   error: string | undefined;
-  loginForm!: FormGroup;
   isLoading = false;
   hidePassword = true;
+  loginForm = new FormGroup({
+    emailFormControl: new FormControl('', [Validators.required, Validators.email]),
+    passwordFormControl: new FormControl('', Validators.required),
+  });
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService
-  ) {
-    this.createForm();
-  }
+  ) {}
 
   ngOnInit() {}
 
@@ -54,8 +54,8 @@ export class LoginComponent implements OnInit {
       )
       .subscribe(
         (credentials) => {
-          log.debug(`${credentials.username} successfully logged in`);
-          this.router.navigate([this.route.snapshot.queryParams.redirect || '/'], { replaceUrl: true });
+          log.debug(`${credentials.email} successfully logged in`);
+          this.router.navigate([this.route.snapshot.queryParams.redirect || '/order-list'], { replaceUrl: true });
         },
         (error) => {
           log.debug(`Login error: ${error}`);
@@ -66,14 +66,6 @@ export class LoginComponent implements OnInit {
 
   createUser() {
     this.router.navigate([`/user-registration`]);
-  }
-
-  private createForm() {
-    this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-      remember: true,
-    });
   }
 
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);

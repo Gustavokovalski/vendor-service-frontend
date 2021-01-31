@@ -2,28 +2,28 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { UserFormRoutingModule } from './user-form-routing.module';
-import { UserFormComponent } from './user-form.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { UserFormAdminComponent } from './user-form-admin.component';
+import { UserFormAdminRoutingModule } from './user-form-admin-routing.module';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
     TranslateModule,
-    UserFormRoutingModule,
+    UserFormAdminRoutingModule,
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
     MatButtonModule,
     MatIconModule,
-    MatSnackBarModule,
+    MatRadioModule,
   ],
-  declarations: [UserFormComponent],
+  declarations: [UserFormAdminComponent],
 })
-export class UserFormModule {}
+export class UserFormAdminModule {}

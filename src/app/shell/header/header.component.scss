@@ -18,18 +18,13 @@
   box-shadow: none;
 }
 
-// .sidenav-container {
-//   width: 100%;
-//   height: 100%;
-// }
-
 .sidenav-drawer {
   padding: 20px;
 }
 
 .sidenav-container {
   position: unset;
-  z-index: 2;
+  z-index: 101;
   background-color: transparent;
   width: fit-content;
 }

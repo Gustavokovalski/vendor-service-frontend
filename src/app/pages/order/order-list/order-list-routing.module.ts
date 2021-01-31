@@ -5,7 +5,19 @@ import { Shell } from '@app/shell/shell.service';
 import { OrderListComponent } from './order-list.component';
 
 const routes: Routes = [
-  Shell.childRoutes([{ path: 'order-list', component: OrderListComponent, data: { title: marker('Pedidos') } }]),
+  Shell.childRoutes([
+    {
+      path: '',
+      redirectTo: '/order-list',
+      pathMatch: 'full',
+      data: { title: marker('Pedidos'), profile: ['Admin', 'Employee', 'Customer'] },
+    },
+    {
+      path: 'order-list',
+      component: OrderListComponent,
+      data: { title: marker('Pedidos'), profile: ['Admin', 'Employee', 'Customer'] },
+    },
+  ]),
 ];
 
 @NgModule({

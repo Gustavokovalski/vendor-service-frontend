@@ -2,15 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { marker } from '@biesbjerg/ngx-translate-extract-marker';
 import { Shell } from '@app/shell/shell.service';
-import { ProductListComponent } from './product-list.component';
+import { UserListComponent } from './user-list.component';
 
 const routes: Routes = [
   Shell.childRoutes([
-    {
-      path: 'product-list',
-      component: ProductListComponent,
-      data: { title: marker('Produtos'), profile: ['Admin', 'Employee'] },
-    },
+    { path: 'user-list', component: UserListComponent, data: { title: marker('Usuários'), profile: 'Admin' } },
   ]),
 ];
 
@@ -19,4 +15,4 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [],
 })
-export class ProductListRoutingModule {}
+export class UserListRoutingModule {}

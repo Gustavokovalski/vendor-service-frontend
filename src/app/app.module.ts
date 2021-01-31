@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -19,6 +19,10 @@ import { UserFormModule } from './pages/user-registration/user-form/user-form.mo
 import { ProductListModule } from './pages/product/product-list/product-list.module';
 import { ProductFormModule } from './pages/product/product-form/product-form.module';
 import { OrderListModule } from './pages/order/order-list/order-list.module';
+import { OrderFormModule } from './pages/order/order-form/order-form.module';
+import { UserListModule } from './pages/user-registration/user-list/user-list.module';
+import { UserFormAdminModule } from './pages/user-registration/user-form-admin/user-form-admin.module';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
 @NgModule({
   imports: [
@@ -36,6 +40,9 @@ import { OrderListModule } from './pages/order/order-list/order-list.module';
     ProductListModule,
     ProductFormModule,
     OrderListModule,
+    OrderFormModule,
+    UserListModule,
+    UserFormAdminModule,
     AuthModule,
     UserFormModule,
 
@@ -43,7 +50,7 @@ import { OrderListModule } from './pages/order/order-list/order-list.module';
     BrowserAnimationsModule, // must be imported as the last module as it contains the fallback route
   ],
   declarations: [AppComponent],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

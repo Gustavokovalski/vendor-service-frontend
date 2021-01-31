@@ -1,28 +1,30 @@
 <div class="user-container bg-light">
   <div class="user-box">
     <div class="row">
-      <h1 color="primary">Crie a sua conta:</h1>
+      <h1 color="primary">Criação de conta:</h1>
     </div>
     <div class="container">
       <mat-card class="card-registration">
         <mat-card-content class="card-content">
-          <form class="user-form" (ngSubmit)="onSubmit()" [formGroup]="userForm" novalidate>
+          <form class="user-form" [formGroup]="userForm" novalidate>
             <mat-form-field class="user-form-group">
               <mat-label>Email</mat-label>
               <input
                 translate
                 type="email"
                 matInput
-                formControlName="email"
+                formControlName="emailFormControl"
                 [errorStateMatcher]="matcher"
                 placeholder="Ex. exemplo@email.com.com"
               />
               <mat-hint>Digite seu e-mail</mat-hint>
 
-              <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
+              <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
                 Insira um e-mail válido
               </mat-error>
-              <mat-error *ngIf="email.hasError('required')"> O e-mail é <strong>obrigatório</strong> </mat-error>
+              <mat-error *ngIf="emailFormControl.hasError('required')">
+                O e-mail é <strong>obrigatório</strong>
+              </mat-error>
             </mat-form-field>
 
             <mat-form-field class="user-form-group">
@@ -31,7 +33,7 @@
                 translate
                 [type]="hidePassword ? 'password' : 'text'"
                 matInput
-                formControlName="password"
+                formControlName="passwordFormControl"
                 [errorStateMatcher]="matcher"
               />
               <button
@@ -46,7 +48,9 @@
               </button>
               <mat-hint>Digite a sua senha</mat-hint>
 
-              <mat-error *ngIf="password.hasError('required')"> A senha é <strong>obrigatória</strong> </mat-error>
+              <mat-error *ngIf="passwordFormControl.hasError('required')">
+                A senha é <strong>obrigatória</strong>
+              </mat-error>
             </mat-form-field>
 
             <mat-form-field class="user-form-group">
@@ -55,7 +59,7 @@
                 translate
                 [type]="hideConfirmation ? 'password' : 'text'"
                 matInput
-                formControlName="confirmPassword"
+                formControlName="confirmPasswordFormControl"
                 [errorStateMatcher]="matcher"
               />
               <button
@@ -70,12 +74,20 @@
               </button>
               <mat-hint>Digite novamente a sua senha</mat-hint>
 
-              <mat-error *ngIf="confirmPassword.hasError('required')">
+              <mat-error *ngIf="confirmPasswordFormControl.hasError('required')">
                 A confirmação senha é <strong>obrigatória</strong>
               </mat-error>
             </mat-form-field>
 
-            <button mat-button type="submit" color="primary" [disabled]="!userForm.valid">Criar conta</button>
+            <div class="radio-profile">
+              <div><label>Selecione o perfil da conta: </label></div>
+              <mat-radio-group formControlName="profileFormControl">
+                <mat-radio-button value="1" [checked]="true">Administrador</mat-radio-button>
+                <mat-radio-button value="2">Funcionário</mat-radio-button>
+              </mat-radio-group>
+            </div>
+
+            <button mat-button type="button" color="primary" [disabled]="!userForm.valid">Criar conta</button>
             <button mat-button type="button" (click)="cancel()">Cancelar</button>
           </form>
         </mat-card-content>

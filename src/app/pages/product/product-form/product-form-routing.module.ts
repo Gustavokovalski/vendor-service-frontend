@@ -5,7 +5,13 @@ import { Shell } from '@app/shell/shell.service';
 import { ProductFormComponent } from './product-form.component';
 
 const routes: Routes = [
-  Shell.childRoutes([{ path: 'product-form', component: ProductFormComponent, data: { title: marker('Produtos') } }]),
+  Shell.childRoutes([
+    {
+      path: 'product-form',
+      component: ProductFormComponent,
+      data: { title: marker('Produtos'), profile: ['Admin', 'Employee'] },
+    },
+  ]),
 ];
 
 @NgModule({

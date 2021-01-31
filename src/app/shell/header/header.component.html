@@ -28,9 +28,9 @@
           <a class="nav-item nav-link text-uppercase" type="button"> Contas </a>
         </mat-expansion-panel-header>
 
-        <a class="nav-item nav-link text-uppercase" type="button"> Visualizar </a>
+        <a class="nav-item nav-link text-uppercase" type="button" [routerLink]="['/user-list']"> Visualizar </a>
 
-        <a class="nav-item nav-link text-uppercase" type="button"> Criar </a>
+        <a class="nav-item nav-link text-uppercase" type="button" [routerLink]="['/user-form-admin']"> Criar </a>
       </mat-expansion-panel>
 
       <mat-expansion-panel class="menu-flex">
@@ -40,7 +40,7 @@
 
         <a class="nav-item nav-link text-uppercase" type="button" [routerLink]="['/order-list']"> Visualizar </a>
 
-        <a class="nav-item nav-link text-uppercase" type="button"> Criar </a>
+        <a class="nav-item nav-link text-uppercase" type="button" [routerLink]="['/order-form']"> Criar </a>
       </mat-expansion-panel>
 
       <mat-expansion-panel class="menu-flex">

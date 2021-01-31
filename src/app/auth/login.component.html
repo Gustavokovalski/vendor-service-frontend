@@ -75,9 +75,9 @@
                 translate
                 type="email"
                 matInput
-                [formControl]="emailFormControl"
+                formControlName="emailFormControl"
                 [errorStateMatcher]="matcher"
-                placeholder="Ex. email@exemplo.com"
+                placeholder="Ex. exemplo@email.com"
               />
               <mat-hint>Digite seu e-mail</mat-hint>
 
@@ -95,7 +95,7 @@
                 translate
                 [type]="hidePassword ? 'password' : 'text'"
                 matInput
-                [formControl]="passwordFormControl"
+                formControlName="passwordFormControl"
                 [errorStateMatcher]="matcher"
               />
               <button
@@ -115,7 +115,7 @@
               </mat-error>
             </mat-form-field>
 
-            <button mat-button type="submit" color="primary">
+            <button mat-button type="submit" color="primary" [disabled]="!loginForm.valid">
               <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
               <span translate>Entrar</span>
             </button>
