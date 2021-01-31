@@ -17,32 +17,18 @@ export class IUserService extends BaseService {
   }
 
   public list(): Promise<IBaseModel<IUserModel[]>> {
-    debugger;
     return this.httpClient.get<IBaseModel<IUserModel[]>>(`${this.serverUrl}/user`, {}).toPromise();
   }
 
-  //     public listarPerfis(): Promise<IBaseModel<IEnumModel[]>> {
-  //       return this.httpClient
-  //       .get<IBaseModel<IEnumModel[]>>(`${this.apiBaseUrl}/usuario/perfis`, { })
-  //       .toPromise();
-  //   }
+  public getById(id: string): Promise<IBaseModel<IUserModel>> {
+    return this.httpClient.get<IBaseModel<IUserModel>>(`${this.serverUrl}/user/${id}`, {}).toPromise();
+  }
 
-  //     public obterPorId(id: string): Promise<IBaseModel<IUsuarioModel>> {
-  //         return this.httpClient
-  //         .get<IBaseModel<IUsuarioModel>>(`${this.apiBaseUrl}/usuario/${id}`, { })
-  //         .toPromise();
-  //     }
+  public async update(data: IUserModel): Promise<IBaseModel<IUserModel>> {
+    return this.httpClient.put<IBaseModel<IUserModel>>(`${this.serverUrl}/user/`, data).toPromise();
+  }
 
-  // public async atualizar(data: IUsuarioModel): Promise<IBaseModel<IUsuarioModel>> {
-  //   data.senha = Md5.hashStr(data.senha).toString().toUpperCase();
-  //   return this.httpClient
-  //     .put<IBaseModel<IUsuarioModel>>(`${this.apiBaseUrl}/usuario/`, data)
-  //     .toPromise();
-  //  }
-
-  //  public async excluir(data: string): Promise<IBaseModel<IUsuarioModel>> {
-  //     return this.httpClient
-  //       .delete<IBaseModel<IUsuarioModel>>(`${this.apiBaseUrl}/usuario?id=${data}`)
-  //       .toPromise();
-  //  }
+  public async delete(id: string): Promise<IBaseModel<IUserModel>> {
+    return this.httpClient.delete<IBaseModel<IUserModel>>(`${this.serverUrl}/user?id=${id}`).toPromise();
+  }
 }

@@ -11,6 +11,11 @@ const routes: Routes = [
       component: ProductFormComponent,
       data: { title: marker('Produtos'), profile: ['Admin', 'Employee'] },
     },
+    {
+      path: 'product-form/:id',
+      component: ProductFormComponent,
+      data: { title: marker('Produtos'), profile: ['Admin', 'Employee'] },
+    },
   ]),
 ];
 

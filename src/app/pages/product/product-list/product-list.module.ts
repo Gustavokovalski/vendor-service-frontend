@@ -14,6 +14,12 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatMenuModule } from '@angular/material/menu';
+import { DEFAULT_CURRENCY_CODE } from '@angular/core';
+import { IConfig, NgxMaskModule } from 'ngx-mask';
+
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
 
 @NgModule({
   imports: [
@@ -31,7 +37,9 @@ import { MatMenuModule } from '@angular/material/menu';
     MatSortModule,
     MatMenuModule,
     ProductListRoutingModule,
+    NgxMaskModule.forRoot(maskConfig),
   ],
+  providers: [{ provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL' }],
   declarations: [ProductListComponent],
 })
 export class ProductListModule {}

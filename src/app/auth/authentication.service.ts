@@ -20,7 +20,6 @@ export class AuthenticationService extends BaseService {
   }
 
   login(context: LoginContext): Observable<Credentials> {
-    debugger;
     const data = {
       email: context.emailFormControl,
       password: context.passwordFormControl,
@@ -29,25 +28,20 @@ export class AuthenticationService extends BaseService {
     let email = data.email;
     let password = data.password;
 
-    var teste = this.httpClient
+    var auth = this.httpClient
       .post<any>(`${this.serverUrl}/user/login`, { email, password })
       .pipe(
         map((user) => {
-          debugger;
           if (user.success) {
-            debugger;
             this.credentialsService.setCredentials(user);
           }
           return user;
         })
       );
-
-    debugger;
-    return teste;
+    return auth;
   }
 
   logout(): Observable<boolean> {
-    // Customize credentials invalidation here
     this.credentialsService.setCredentials();
     return of(true);
   }

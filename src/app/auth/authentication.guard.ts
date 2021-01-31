@@ -21,7 +21,6 @@ export class AuthenticationGuard implements CanActivate {
     const currentUser = this.credentialsService.credentials;
     const routeProfile = route.routeConfig.children[0].data.profile;
 
-    debugger;
     if (currentUser) {
       if (routeProfile) {
         if (!routeProfile.includes(currentUser.result.profile.name)) {

@@ -11,6 +11,11 @@ const routes: Routes = [
       component: UserFormAdminComponent,
       data: { title: marker('Usuários'), profile: 'Admin' },
     },
+    {
+      path: 'user-form-admin/:id',
+      component: UserFormAdminComponent,
+      data: { title: marker('Usuários'), profile: ['Admin'] },
+    },
   ]),
 ];
 
