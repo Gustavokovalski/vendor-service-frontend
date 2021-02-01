@@ -1,0 +1,49 @@
+.user-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.user-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100%;
+  padding-top: 50px;
+}
+
+.container {
+  min-width: 500px;
+  width: 100%;
+  margin-top: 15px;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td,
+th {
+  width: 25%;
+}
+
+.mat-column-email {
+  width: 500px;
+}
+
+.mat-column-profile {
+  width: 300px;
+}
+
+.mat-column-actions {
+  width: 50px;
+}

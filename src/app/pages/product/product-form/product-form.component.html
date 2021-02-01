@@ -1,0 +1,44 @@
+<div class="product-container bg-light">
+  <div class="product-box">
+    <div class="row">
+      <h1 translate>{{ title }}</h1>
+    </div>
+    <div class="container">
+      <mat-card class="card-login">
+        <mat-card-content class="card-content">
+          <form class="example-form" (ngSubmit)="onSubmit()" [formGroup]="productForm" novalidate>
+            <mat-form-field class="example-full-width">
+              <mat-label>Nome</mat-label>
+              <input translate matInput formControlName="name" [errorStateMatcher]="matcher" maxlength="50" />
+              <mat-hint>Digite o nome do produto</mat-hint>
+
+              <mat-error *ngIf="name.hasError('required')">
+                O nome do produto é <strong>obrigatório</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+              <mat-label>Preço</mat-label>
+              <input
+                translate
+                type="number"
+                matInput
+                formControlName="price"
+                [errorStateMatcher]="matcher"
+                class="example-right-align"
+                mask="separator.2"
+              />
+              <!-- <span matPrefix>R$&nbsp;</span> -->
+              <mat-hint>Digite o preço do produto</mat-hint>
+
+              <mat-error *ngIf="price.hasError('required')"> O preço é <strong>obrigatório</strong> </mat-error>
+            </mat-form-field>
+
+            <button mat-button type="submit" color="primary">Salvar</button>
+            <button mat-button type="button" (click)="cancel()">Cancelar</button>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

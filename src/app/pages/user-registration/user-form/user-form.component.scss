@@ -1,0 +1,56 @@
+.user-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.user-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100%;
+}
+
+.container {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.user-form {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-form-group {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.card-registration {
+  text-align: center;
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.card-content {
+  justify-content: center;
+  align-items: center;
+}
+
+.ng-invalid.ng-touched {
+  border-left: none !important;
+}
+
+.material-icons {
+  font-size: 36px;
+  margin-top: 5px;
+  margin-right: 10px;
+}

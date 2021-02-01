@@ -1,0 +1,112 @@
+@import "src/theme/theme-variables";
+
+.product-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.product-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100%;
+}
+
+.ng-invalid.ng-touched:not(form) {
+  border-left: 4px solid theme-color("danger");
+}
+
+.container {
+  min-width: 500px;
+  max-width: 1000px;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.example-form {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.example-full-width {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.example-card {
+  max-width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-order {
+  text-align: center;
+  min-width: 500px;
+  max-width: 100%;
+  width: 100%;
+}
+
+.card-content {
+  justify-content: center;
+  align-items: center;
+}
+
+.ng-invalid.ng-touched {
+  border-left: none !important;
+}
+
+.material-icons {
+  font-size: 36px;
+  margin-top: 5px;
+  margin-right: 10px;
+}
+
+.example-right-align {
+  text-align: right;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.example-right-align {
+  -moz-appearance: textfield;
+}
+
+.tbl-container {
+  height: 300px;
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+tr.mat-footer-row {
+  font-weight: bold;
+}
+
+.btn-actions {
+  text-align: right !important;
+}
+
+.icon-btn-actions {
+  font-size: 20px;
+}
+
+.select-product {
+  width: inherit;
+}
+
+.btn-add {
+  align-self: center;
+}

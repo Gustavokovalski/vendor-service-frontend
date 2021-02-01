@@ -1,9 +1,54 @@
 @import "src/theme/theme-variables";
 
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
 .navbar {
   margin-bottom: $spacer;
 }
 
 .nav-link.dropdown-toggle {
   cursor: pointer;
+}
+
+.menu-flex {
+  box-shadow: none;
+}
+
+.sidenav-drawer {
+  padding: 20px;
+}
+
+.sidenav-container {
+  position: unset;
+  z-index: 101;
+  background-color: transparent;
+  width: fit-content;
+}
+
+.example-toolbar {
+  position: fixed;
+  /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+  z-index: 2;
+}
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.nav-item {
+  width: fit-content;
+  margin: unset;
+}
+
+.material-icons {
+  margin-top: 8px;
 }
