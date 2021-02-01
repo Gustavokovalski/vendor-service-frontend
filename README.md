@@ -12,6 +12,7 @@ Foram criados três profiles de acesso:
 Foi realizada a criação de uma conta com **perfil Admin** para acesso ao sistema:
 
 Login: **gustavokovalski.saporiti@gmail.com**
+
 Senha: **adminvendordb**
 
 Comando para execução do frontend utilizando Docker:
