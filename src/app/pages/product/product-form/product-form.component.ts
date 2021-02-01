@@ -26,7 +26,7 @@ export class ProductFormComponent implements OnInit {
   error: string | undefined;
   newProduct = true;
   productForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     price: new FormControl('', [Validators.required]),
   });
 
@@ -37,7 +37,6 @@ export class ProductFormComponent implements OnInit {
     private snackBarService: SnackBarService
   ) {
     const id = this.route.snapshot.paramMap.get('id');
-    debugger;
     if (id) {
       this.id = Number.parseInt(id);
       this.newProduct = false;
@@ -102,7 +101,7 @@ export class ProductFormComponent implements OnInit {
     this.router.navigate([`/product-list`]);
   }
 
-  name = new FormControl('', [Validators.required]);
+  name = new FormControl('', [Validators.required, Validators.maxLength(50)]);
   price = new FormControl('', [Validators.required]);
 
   matcher = new MyErrorStateMatcher();

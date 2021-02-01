@@ -7,6 +7,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { environment } from '@env/environment';
 import { Logger, UntilDestroy, untilDestroyed } from '@core';
 import { AuthenticationService } from './authentication.service';
+import { SnackBarService } from 'src/services/snackbar.service';
 
 const log = new Logger('Login');
 
@@ -36,7 +37,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    public snackbarService: SnackBarService
   ) {}
 
   ngOnInit() {}
@@ -54,10 +56,15 @@ export class LoginComponent implements OnInit {
       )
       .subscribe(
         (credentials) => {
-          log.debug(`${credentials.email} successfully logged in`);
-          this.router.navigate([this.route.snapshot.queryParams.redirect || '/order-list'], { replaceUrl: true });
+          if (credentials['success']) {
+            log.debug(`${credentials.email} successfully logged in`);
+            this.router.navigate(['/order-list'], { replaceUrl: true });
+          } else {
+            this.snackbarService.openSnackBar('Credenciais incorretas!', 'error');
+          }
         },
         (error) => {
+          this.snackbarService.openSnackBar('Erro ao logar', 'error');
           log.debug(`Login error: ${error}`);
           this.error = error;
         }

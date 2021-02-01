@@ -1,9 +1,12 @@
 <div class="product-container bg-light">
   <div class="product-box">
+    <div class="row">
+      <h1 color="primary">Produtos</h1>
+    </div>
     <div class="container">
       <mat-form-field>
-        <mat-label>Filter</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input />
+        <mat-label>Filtro</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Digite o e-mail do usuário" #input />
       </mat-form-field>
 
       <div class="mat-elevation-z8">
@@ -40,7 +43,7 @@
           </ng-container>
 
           <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" colspan="4">No data matching the filter "{{ input.value }}"</td>
+            <td class="mat-cell" colspan="4">Sem resultados "{{ input.value }}"</td>
           </tr>
         </table>
 

@@ -1,5 +1,8 @@
 <div class="user-container bg-light">
   <div class="user-box">
+    <div class="row">
+      <h1 color="primary">Usuários</h1>
+    </div>
     <div class="container">
       <mat-form-field>
         <mat-label>Filtro</mat-label>
@@ -40,7 +43,7 @@
           </ng-container>
 
           <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" colspan="4">No data matching the filter "{{ input.value }}"</td>
+            <td class="mat-cell" colspan="4">Sem resultados "{{ input.value }}"</td>
           </tr>
         </table>
 

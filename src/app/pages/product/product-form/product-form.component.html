@@ -9,7 +9,7 @@
           <form class="example-form" (ngSubmit)="onSubmit()" [formGroup]="productForm" novalidate>
             <mat-form-field class="example-full-width">
               <mat-label>Nome</mat-label>
-              <input translate matInput formControlName="name" [errorStateMatcher]="matcher" />
+              <input translate matInput formControlName="name" [errorStateMatcher]="matcher" maxlength="50" />
               <mat-hint>Digite o nome do produto</mat-hint>
 
               <mat-error *ngIf="name.hasError('required')">

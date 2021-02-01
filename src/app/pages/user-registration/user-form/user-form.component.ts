@@ -68,9 +68,9 @@ export class UserFormComponent implements OnInit {
 
   email = new FormControl('', [Validators.required, Validators.email]);
 
-  password = new FormControl('', [Validators.required]);
+  password = new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(15)]);
 
-  confirmPassword = new FormControl('', [Validators.required]);
+  confirmPassword = new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(15)]);
 
   matcher = new MyErrorStateMatcher();
 }

@@ -29,9 +29,9 @@ export class UserFormAdminComponent implements OnInit {
   id: string;
   userForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', Validators.required),
-    confirmPassword: new FormControl('', Validators.required),
-    profileId: new FormControl(''),
+    password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
+    confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
+    profileId: new FormControl(2),
   });
 
   constructor(
@@ -41,7 +41,6 @@ export class UserFormAdminComponent implements OnInit {
     private snackBarService: SnackBarService
   ) {
     const id = this.route.snapshot.paramMap.get('id');
-    debugger;
     if (id) {
       this.id = id.toString();
       this.newUser = false;
@@ -77,6 +76,7 @@ export class UserFormAdminComponent implements OnInit {
   }
 
   public async onSubmit() {
+    debugger;
     if (this.userForm.invalid) {
       this.snackBarService.openSnackBar('Formulário inválido!', 'warning');
       return;
@@ -86,15 +86,13 @@ export class UserFormAdminComponent implements OnInit {
       this.snackBarService.openSnackBar('As senhas não conferem!', 'warning');
       return;
     }
-    debugger;
     Object.assign(this.model, this.userForm.value);
-    this.model.profileId = Number.parseInt(this.userForm.controls.profileId.value);
+    this.model.profileId = this.userForm.controls.profileId.value;
     try {
       let res: IBaseModel<IUserModel> = null;
       if (this.newUser) {
         res = await this.service.create(this.model);
       } else {
-        debugger;
         res = await this.service.update(this.model);
       }
 
@@ -115,9 +113,11 @@ export class UserFormAdminComponent implements OnInit {
 
   email = new FormControl('', [Validators.required, Validators.email]);
 
-  password = new FormControl('', [Validators.required]);
+  password = new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(15)]);
 
-  confirmPassword = new FormControl('', [Validators.required]);
+  confirmPassword = new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(15)]);
+
+  profileId = new FormControl(2);
 
   matcher = new MyErrorStateMatcher();
 }

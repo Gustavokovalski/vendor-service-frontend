@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { CredentialsService } from '@app/auth';
 import { IOrderModel } from '@app/models/order.model';
 import { SnackBarService } from 'src/services/snackbar.service';
 import { IOrderService } from '../order.service';
@@ -20,7 +21,12 @@ export class OrderListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private service: IOrderService, private snackBarService: SnackBarService, private router: Router) {}
+  constructor(
+    private service: IOrderService,
+    private snackBarService: SnackBarService,
+    private router: Router,
+    public credentialsService: CredentialsService
+  ) {}
 
   ngOnInit(): void {
     this.getOrders();
@@ -38,10 +44,15 @@ export class OrderListComponent implements OnInit, AfterViewInit {
   }
 
   public getOrders() {
+    debugger;
     this.service
       .list()
       .then((res) => {
-        this.dataSource = new MatTableDataSource<IOrderModel>(res.result);
+        this.dataSource = new MatTableDataSource<IOrderModel>(
+          this.credentialsService.credentials.result.profileId == 3
+            ? res.result.filter((x) => x.customerEmail == this.credentialsService.credentials.result.email)
+            : res.result
+        );
         this.paginator.pageSize = this.pageSize;
         this.dataSource.paginator = this.paginator;
       })
@@ -55,7 +66,6 @@ export class OrderListComponent implements OnInit, AfterViewInit {
   }
 
   public delete(id: any) {
-    debugger;
     this.service
       .delete(id)
       .then((res) => {

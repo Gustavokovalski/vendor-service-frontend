@@ -52,7 +52,6 @@ export class OrderFormComponent implements OnInit {
     private productService: IProductService
   ) {
     const id = this.route.snapshot.paramMap.get('id');
-    debugger;
     if (id) {
       this.id = Number.parseInt(id);
       this.newOrder = false;
@@ -71,7 +70,6 @@ export class OrderFormComponent implements OnInit {
       await this.productService
         .list()
         .then((res) => {
-          debugger;
           this.productList = res.result;
         })
         .catch((err) => {
@@ -81,7 +79,6 @@ export class OrderFormComponent implements OnInit {
         this.service
           .getByOrderId(this.id)
           .then((list) => {
-            debugger;
             this.productsAdded = list.result;
             this.productsAdded.forEach((x) => (x.productName = this.productList.find((y) => y.id == x.productId).name));
             this.dataSource = new MatTableDataSource<IProductOrderModel>(this.productsAdded);
@@ -94,7 +91,6 @@ export class OrderFormComponent implements OnInit {
 
         if (res.success) {
           this.model = res.result;
-          debugger;
         } else {
           this.snackBarService.openSnackBar(res.message[0].description, 'error');
           this.router.navigate(['/order-list']);
@@ -109,7 +105,6 @@ export class OrderFormComponent implements OnInit {
   }
 
   public async onSubmit() {
-    debugger;
     if (this.orderForm.invalid) {
       this.snackBarService.openSnackBar('Formulário inválido!', 'warning');
       return;
@@ -129,7 +124,6 @@ export class OrderFormComponent implements OnInit {
         this.model.purchaseDate = date;
         res = await this.service.create(this.model);
       } else {
-        debugger;
         res = await this.service.update(this.model);
       }
 

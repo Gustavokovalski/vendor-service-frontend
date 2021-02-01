@@ -1,8 +1,11 @@
 <div class="order-container bg-light">
   <div class="order-box">
+    <div class="row">
+      <h1 color="primary">Pedidos</h1>
+    </div>
     <div class="container">
       <mat-form-field>
-        <mat-label>Filter</mat-label>
+        <mat-label>Filtro</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input />
       </mat-form-field>
 
@@ -41,14 +44,26 @@
                 <mat-icon>more_vert</mat-icon>
               </button>
               <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="edit(row.id)">Editar</button>
-                <button mat-menu-item (click)="delete(row.id)">Excluir</button>
+                <button
+                  mat-menu-item
+                  (click)="edit(row.id)"
+                  [disabled]="credentialsService.credentials.result.profileId === 3"
+                >
+                  Editar
+                </button>
+                <button
+                  mat-menu-item
+                  (click)="delete(row.id)"
+                  [disabled]="credentialsService.credentials.result.profileId === 3"
+                >
+                  Excluir
+                </button>
               </mat-menu>
             </td>
           </ng-container>
 
           <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" colspan="4">No data matching the filter "{{ input.value }}"</td>
+            <td class="mat-cell" colspan="4">Sem resultados "{{ input.value }}"</td>
           </tr>
         </table>
 
